@@ -21,7 +21,6 @@ var toDo = (function() {
 		var dismissBtn = document.createElement("a");
 		dismissBtn.classList.add("secondary-content", "delete-btn");
 		
-		
 		var dismissBtnIcon = document.createElement("i");
 		dismissBtnIcon.classList.add("material-icons", "scale-up");
 		dismissBtnIcon.innerHTML = "delete_forever";
@@ -101,7 +100,6 @@ var toDo = (function() {
 	function toggleDone() {
 
 		var checkedListItems = document.querySelectorAll(".deep-orange"); 
-		
 
 		var list = document.querySelector(".todo-list");
 
