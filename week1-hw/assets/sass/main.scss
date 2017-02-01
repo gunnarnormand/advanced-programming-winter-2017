@@ -1,0 +1,64 @@
+/* 
+==============================================
+CONTENT:	week1-hw
+AUTHOR:		Gunnar Normand
+==============================================
+
+TABLE OF CONTENTS:
+
+1. Main Layout
+2. Content
+
+==============================================
+*/
+
+
+
+/* 1. Main Layout ================================= */
+
+* {
+	box-sizing: border-box;
+}
+
+html, 
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* 2. Content ================================= */
+
+.bubble {
+  position: absolute;
+  background: rgba(223, 220, 255, .2);
+  border: 1px solid rgba(92, 126, 236, .1);
+  border-radius: 50%;
+}
+    
+#btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px 20px;
+  background: skyblue;
+  border: none;
+}
+
+p {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  font-size: 40px;
+  font-family: sans-serif;
+  text-shadow: 2px 2px skyblue;
+  opacity: 0;
+  transition: opacity 2s;
+  color: #ff7;
+}
+
+
