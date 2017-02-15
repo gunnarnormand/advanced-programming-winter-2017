@@ -1,0 +1,39 @@
+/* 
+==============================================
+CONTENT: A simple todo list app.	
+AUTHOR: Gunnar Normand
+==============================================
+
+TABLE OF CONTENTS:
+
+1. Main Layout
+2. Content
+
+==============================================
+*/
+/* 1. Main Layout ================================= */
+* {
+  box-sizing: border-box; }
+
+/* 2. Content ================================= */
+.collection .collection-item {
+  transition-duration: 1s;
+  transition-property: border-bottom;
+  transition-timing-function: ease; }
+
+.scale-up {
+  will-change: transform;
+  transition-property: transform;
+  transition-duration: .2s;
+  transition-timing-function: ease-in-out; }
+  .scale-up:hover {
+    cursor: pointer;
+    transform: scale(1.3); }
+
+label.secondary-content {
+  float: left; }
+
+.collection.done-invisible .deep-orange {
+  opacity: .3; }
+
+/*# sourceMappingURL=main.css.map */
