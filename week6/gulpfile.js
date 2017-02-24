@@ -5,6 +5,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var jshint = require('gulp-jshint');
 var stylish = require('jshint-stylish');
 var browserSync = require('browser-sync').create();
+var babel = require('gulp-babel');
 
 
 
@@ -28,6 +29,14 @@ gulp.task('lint', function () {
 		.pipe(jshint.reporter('jshint-stylish'/*, {beep: true}*/)); // if there are errors, show them
 });
 
+gulp.task('run-babel', function(){
+	return gulp.src('./assets/js/**/*.js')
+		.pipe(babel({
+			presets: ['es2015']
+		}))
+		.pipe(gulp.dest('./assets/lib'));
+});
+
 
 
 gulp.task('default', function() { // running `gulp` runs this task. this task sort of branches off into the others as needed
@@ -38,6 +47,7 @@ gulp.task('default', function() { // running `gulp` runs this task. this task so
 
 	gulp.watch('./assets/sass/**/*.scss', ['sass']); // watch sass files. if they change, run the task called "sass"
 	gulp.watch('./assets/js/**/*.js', ['lint']); // watch js files. if they change, run the task called "lint"
+    gulp.watch('./assets/js/**/*.js', ['run-babel']);
     gulp.watch("./**/*.html").on('change', browserSync.reload); // watch all top level files and reload if they change
     gulp.watch("./assets/**/*.*").on('change', browserSync.reload); // watch all assets and reload if they change
 });

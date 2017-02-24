@@ -1,1 +1,1 @@
-console.log("Hello World from main.js!");
+let something = "babel def";
