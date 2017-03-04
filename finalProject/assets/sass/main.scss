@@ -1,0 +1,64 @@
+/* 
+==============================================
+CONTENT:	travelfolio
+AUTHOR:		Gunnar Normand
+==============================================
+
+TABLE OF CONTENTS:
+
+1. Main Layout
+2. Content
+
+==============================================
+*/
+
+
+
+/* 1. Main Layout ================================= */
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	background: url("https://unsplash.it/1800/1200/?random")no-repeat center center;
+	/* ../img/logo.png */
+	background-attachment: fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+
+	min-height: 100vh;
+	max-height: 100vh;
+}
+
+
+
+/* 2. Content ================================= */
+
+
+@import '../../node_modules/mdbootstrap/sass/mdb';
+
+
+.deep-purple {
+	background-color: rgba(103, 58, 183, 0.8) !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
