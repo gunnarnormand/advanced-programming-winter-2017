@@ -58,9 +58,10 @@ const app = (function() {
 
 		let $newPlaceButton = document.createElement('div');
 		$newPlaceButton.classList.add('card-block');
-		$newPlaceButton.innerHTML = `
-										<button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary waves-effect btn-block">add review</button>
-									`;
+		$newPlaceButton.innerHTML = 
+		`
+			<button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary waves-effect btn-block">add review</button>
+		`;
 
 		
 		 
