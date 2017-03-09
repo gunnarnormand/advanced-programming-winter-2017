@@ -10,6 +10,8 @@ var app = function () {
 	var $searchInput = document.querySelector('#search-input');
 	var $mainRow = document.querySelector('#main-row');
 
+	var items = [];
+
 	var init = function init() {
 		getPlace();
 	};
@@ -38,7 +40,7 @@ var app = function () {
 
 		var $newPlaceButton = document.createElement('div');
 		$newPlaceButton.classList.add('card-block');
-		$newPlaceButton.innerHTML = '\n\t\t\t\t\t\t\t\t\t\t<button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary waves-effect btn-block">add review</button>\n\t\t\t\t\t\t\t\t\t';
+		$newPlaceButton.innerHTML = '\n\t\t\t<button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary waves-effect btn-block">add review</button>\n\t\t\t<button type="button" class="btn btn-sm btn-secondary waves-effect btn-block">remove</button>\n\t\t';
 
 		$mainRow.appendChild($newPlace);
 		$newPlace.appendChild($newPlaceName);

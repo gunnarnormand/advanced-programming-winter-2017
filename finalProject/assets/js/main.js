@@ -10,6 +10,8 @@ const app = (function() {
 	const $searchInput = document.querySelector('#search-input');
 	const $mainRow = document.querySelector('#main-row');	
 
+	const items = [];
+
 
 
 
@@ -61,6 +63,7 @@ const app = (function() {
 		$newPlaceButton.innerHTML = 
 		`
 			<button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary waves-effect btn-block">add review</button>
+			<button type="button" class="btn btn-sm btn-secondary waves-effect btn-block">remove</button>
 		`;
 
 		

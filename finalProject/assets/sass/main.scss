@@ -45,18 +45,36 @@ body {
 	background-color: rgba(103, 58, 183, 0.8) !important;
 }
 
+.btn-floating, .btn-floating i {
+    display: inline-block;
+    line-height: 37px;
+    color: #fff;
+}
 
+.btn-floating {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    width: 37px;
+    height: 37px;
+    padding: 0;
+    background-color: #a6c;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    border-radius: 50%;
+    transition: .3s;
+    margin: 10px;
+}
 
-
-
-
-
-
-
-
-
-
-
+.btn-floating.btn-small, 
+.btn-floating.wishlist, 
+.card .card-share .social-reveal .btn-floating {
+    height: 47px;
+    width: 47px;
+    line-height: 0;
+}
 
 
 
