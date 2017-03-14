@@ -8,11 +8,16 @@ const app = (function() {
 	const $placesList = document.querySelector('#places-list');
 	const $myModalLabel= document.querySelector('#myModalLabel');
 	const $placeType = document.querySelector('#place-type');	
-	const $reviewForm = document.querySelector('#review-form');		
+	const $reviewForm = document.querySelector('#review-form');
+	const $reviewsList = document.querySelector('#reviews-list');
+	const $showReviews = document.querySelectorAll('.show-reviews');
+	const $reviewModalPlace = document.querySelector('#myModalLabel2');		
 	// try to get from localStorage if not there fall back to empty array
-	const places = JSON.parse(localStorage.getItem('items')) || [];
+	const places = JSON.parse(localStorage.getItem('places')) || [];
 
-	const reviews = JSON.parse(localStorage.getItem('items')) || [];
+	// const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+
+	var reviewPlaceIndex = -1; // while creating a new review, this tells us what place it should be attached to
 
 
 	const init = function() {	
@@ -20,6 +25,11 @@ const app = (function() {
 	}
 
 	const controller = function() {
+
+
+		function savePlacesToLocalStorage() {
+			localStorage.setItem('places', JSON.stringify(places));
+		}
 
 		function addPlace(e) {
 			e.preventDefault();
@@ -33,11 +43,9 @@ const app = (function() {
 			}
 			if (placeText.length > 0) {
 				places.push(place);
-				displayPlace(places, $placesList);
-				localStorage.setItem('items', JSON.stringify(places));
+				refreshPlaces(places, $placesList);
+				savePlacesToLocalStorage();
 				this.reset();
-			// } else if (deleted === true) {
-			// 	localStorage.removeItem('items', JSON.stringify(places));
 			} else {
 				$placesInput.focus();
 			}	
@@ -55,17 +63,11 @@ const app = (function() {
 				formEntries[inputInfo[0]] = inputInfo[1];
 			}
 			
+			// console.log(formInfo);
 			// console.log(formEntries);
 
-			reviews.push(formEntries);
-
-			console.log(reviews);
-
-			
-
-			// displayReview(reviews, $reviewsList);
-			// localStorage.setItem('items', JSON.stringify(reviews));
-
+			places[reviewPlaceIndex].reviews.push( formEntries );
+			savePlacesToLocalStorage();
 
 			$reviewForm.innerHTML = `
 				<select id="place-type" class="browser-default">
@@ -78,16 +80,27 @@ const app = (function() {
 				</select>
 			`;
 
+
+			$('#myModal').modal('hide');	
+			// console.log('review form reset');
+
+
+
+			// refreshReviews(places, $reviewsList);
+				
 		}
 
-		function displayPlace(places = [], placesList) {
+		function refreshPlaces(places = [], placesList) {
+
 			placesList.innerHTML = places.map((place, i) => {
+				if (place.deleted) return ;//`<div class="col-md-8 col-lg-7 mx-auto float-xs-none white z-depth-1 py-2 px-2 animated slideInDown">Item deleted</div>`;
 				return `
 					<div class="col-md-8 col-lg-7 mx-auto float-xs-none white z-depth-1 py-2 px-2 animated slideInDown">
 						<h2 class="h2-responsive"><strong>${place.placeText}</strong></h2>
+						<h3><a data-index="${i}" class="show-reviews" name="showreviewbtn" data-toggle="modal" data-target=".modal2" >(${place.reviews.length} reviews)</a></h3>			
 						<div class="card-block">
 			                <div class="text-center">
-			                    <button type="button" name="reviewbtn" data-index=${i} data-toggle="modal" data-target="#myModal" class="btn btn-primary waves-effect btn-block">add review</button>
+			                    <button type="button" name="addreviewbtn" data-index=${i} data-toggle="modal" data-target="#myModal" class="btn btn-primary waves-effect btn-block">add review</button>
 			                    <button type="button" name="deleted" data-index=${i} class="btn btn-sm btn-secondary waves-effect btn-block" >remove</button>
 			                </div>
 				        </div>
@@ -95,12 +108,33 @@ const app = (function() {
 				`;
 			}).join('');
 
+
+
 			// console.clear();
 			// console.table(places);
 		}
 
-		function displayReview(reviews = [], reviewsList) {
-			console.log(reviewsList);
+		function refreshReviews(places = [], reviewsList) {
+			// console.log(reviewsList);
+
+			reviewsList.innerHTML = places[reviewPlaceIndex].reviews[reviewPlaceIndex].map((review, i) => {
+				return `
+					<div class="card text-center">
+					    <div class="card-header deep-purple darken-2 white-text">
+					        ${review.name}
+					    </div>
+					    <div class="card-block">
+					        <h4 class="card-title">${review.rating}</h4>
+					        <p class="card-text">${review.review}</p>
+					    </div>
+					    <div class="card-footer text-muted deep-purple darken-2 white-text">
+					        <p>2 days ago</p>
+					    </div>
+					</div>
+				`
+			}).join('');
+
+			// console.table(places[reviewPlaceIndex].reviews);	
 		}
 
 
@@ -110,22 +144,48 @@ const app = (function() {
 			const el = e.target;
 			const index = el.dataset.index;
 			places[index].deleted = !places[index].deleted;
-			localStorage.setItem('items', JSON.stringify(places));
-			displayPlace(places, $placesList);
+			savePlacesToLocalStorage();
+			refreshPlaces(places, $placesList);
 		}
 
 		function setupReviewTitle(e) {
-			if(!e.target.matches('[name=reviewbtn]')) return;
+			if(!e.target.matches('[name=addreviewbtn]')) return;
 
 			const el = e.target;
 			const index = el.dataset.index;
 
 			$myModalLabel.innerHTML = `Create a review for ${places[index].placeText}`;
 
-			displayPlace(places, $placesList);
+			refreshPlaces(places, $placesList);
+		}
+
+		function storeReviewPlaceIndex(e) {
+			if(!e.target.matches('[name=addreviewbtn]')) return;
+
+			const el = e.target;
+			const index = el.dataset.index;
+
+			reviewPlaceIndex = index;
+		}
+
+		function showReviews(e) {
+			if(!e.target.matches('[name=showreviewbtn]')) return;
+	
+			const el = e.target;
+			const index = el.dataset.index;
+			
+			console.log(places[index]);
+			
+
+			$reviewModalPlace.innerHTML = `Reviews for ${places[index].placeText}`;
+
+			refreshReviews(places, $reviewsList);
+
 		}
 
 		function setupReviewForm(e) {
+
+			// console.log("setupReviewForm", e);
 
 			const dfReview = {
 				name: 'name',
@@ -152,7 +212,6 @@ const app = (function() {
 						    <option value="4">good</option>
 						    <option value="5">excellent</option>
 						</select>
-
 						
 						<p>${this.recommend}</p>
 			            <div class="btn-group" data-toggle="buttons">
@@ -231,22 +290,25 @@ const app = (function() {
 			} else if (reviewType === 'uncategorized') {
 				$reviewForm.innerHTML = dfReview.getFormInfo();
 			}
-
-
 		}
 
-		displayPlace(places, $placesList);
+		refreshPlaces(places, $placesList);
 		$searchForm.addEventListener('submit', addPlace);
 		$placesList.addEventListener('click', setDeleted);
 		$placesList.addEventListener('click', setupReviewTitle);
+		$placesList.addEventListener('click', storeReviewPlaceIndex);
 		$placeType.addEventListener('change', setupReviewForm);
-
 		$reviewForm.addEventListener('submit', addReview);
+
+		$placesList.addEventListener('click', showReviews);
+
+		
 	}
 
 
 	return {
-		init: init
+		init: init,
+		places: places
 	}
 })();
 
