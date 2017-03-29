@@ -13,7 +13,6 @@ TABLE OF CONTENTS:
 */
 
 
-
 /* 1. Main Layout ================================= */
 
 * {
@@ -21,8 +20,8 @@ TABLE OF CONTENTS:
 }
 
 body {
+    // background: url('http://lorempixel.com/1400/1200/')no-repeat center center;
 	background: url("https://unsplash.it/1800/1200/?random")no-repeat center center;
-	/* ../img/logo.png */
 	background-attachment: fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
@@ -41,42 +40,123 @@ body {
 @import '../../node_modules/mdbootstrap/sass/mdb';
 
 
+select {
+    margin-bottom: 20px;
+}
+
+a {
+    color: #717580 !important;
+
+    &:hover {
+        color: rgba(103, 58, 183, 0.8) !important;
+    }
+}
+
 .deep-purple {
-	background-color: rgba(103, 58, 183, 0.8) !important;
+    // background-color: #717580 !important;
+    background: linear-gradient(90deg, rgba(103, 58, 183, 0.8), transparent), 
+                linear-gradient(0deg, rgba(255,255,255, 0.8), transparent), 
+                linear-gradient(-90deg, rgba(103, 58, 183, 0.8), transparent)!important;
+    background-blend-mode: screen!important;
 }
 
-.btn-floating, .btn-floating i {
-    display: inline-block;
-    line-height: 37px;
-    color: #fff;
+.modal-header {
+    border-bottom: 0 !important;
 }
 
-.btn-floating {
-    position: relative;
-    overflow: hidden;
+.btn-primary {
+    background: rgba(103, 58, 183, .8) !important;
+    color: rgba(255, 255, 255, 0.8) !important;
+
+    &:hover {
+        background: rgba(103, 58, 183, 0.6) !important;
+    }
+}
+
+.btn-secondary {
+    background: rgba(103, 58, 183, .8) !important;
+    color: rgba(255, 255, 255, 0.8) !important;
+
+    &:hover {
+        background: #717580 !important;
+    }
+}
+
+.md-form .prefix.active {
+    color: rgba(103, 58, 183, 0.8) !important;
+}
+
+.btn-primary.active {
+    background-color: rgba(103, 58, 183, 0.6) !important;
+}
+
+// Text inputs
+input[type=text],
+input[type=password],
+input[type=email],
+input[type=url],
+input[type=time],
+input[type=date],
+input[type=datetime-local],
+input[type=tel],
+input[type=number],
+input[type=search-md],
+input[type=search],
+textarea.md-textarea {
+
+    // Focused input style
+    &:focus:not([readonly]) {
+        border-bottom: 1px solid rgba(103, 58, 183, 0.8) !important;
+        box-shadow: 0 1px 0 0 rgba(103, 58, 183, 0.8) !important;
+    }
+    // Focused label style
+    &:focus:not([readonly])+label {
+        color: rgba(103, 58, 183, 0.8) !important;
+    }
+    // Valid Input Style
+    &.valid,
+    &:focus.valid {
+        border-bottom: 1px solid rgba(103, 58, 183, 0.8) !important;
+        box-shadow: 0 1px 0 0 $input-success-color;
+    }
+    // Custom Success Message
+    &.valid + label:after,
+    &:focus.valid + label:after {
+        content: attr(data-success);
+        color: rgba(103, 58, 183, 0.8) !important;
+        opacity: 1;
+    }
+}
+
+select {
+    width: 100%;
+    font-size: 1rem;
+    height: (1rem * 1.6);
+    background: none;
+    border: none;
+    line-height: 1.6;
+    box-shadow: none;
+    color: #757575;
+}
+
+.control-label {
+    position: absolute;
+    bottom: 1.25rem;
+    pointer-events: none;
+    padding-left: 1rem / 8;
     z-index: 1;
-    width: 37px;
-    height: 37px;
-    padding: 0;
-    background-color: #a6c;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    -ms-border-radius: 50%;
-    -o-border-radius: 50%;
-    border-radius: 50%;
-    transition: .3s;
-    margin: 10px;
+    color: rgba(103, 58, 183, 0.8) !important;
+    font-size: 1rem;
+    font-weight: normal;
+
+    font-weight:300;
+    font-size:0.75rem;
 }
 
-.btn-floating.btn-small, 
-.btn-floating.wishlist, 
-.card .card-share .social-reveal .btn-floating {
-    height: 47px;
-    width: 47px;
-    line-height: 0;
+.bar {
+    position: relative;
+    border-bottom: 1px solid #ccc !important;
+    display: block;
+    margin-bottom: 1rem;
 }
-
-
-
-
 

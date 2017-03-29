@@ -22,6 +22,14 @@ TABLE OF CONTENTS:
 	box-sizing: border-box;
 }
 
+body {
+  color: $darkblue;
+}
+
+h1 {
+  font-family: 'Raleway', sans-serif;
+}
+
 
 
 /* 2. Content ================================= */
@@ -33,15 +41,15 @@ TABLE OF CONTENTS:
 }
 
 .scale-up {
-    will-change: transform;
-    transition-property: transform;
-    transition-duration: .2s;
-    transition-timing-function: ease-in-out;
+  will-change: transform;
+  transition-property: transform;
+  transition-duration: .2s;
+  transition-timing-function: ease-in-out;
 
-  	&:hover {
-  		cursor: pointer;
-  		transform: scale(1.3);
-  	}
+  &:hover {
+  	cursor: pointer;
+  	transform: scale(1.3);
+  }
 }
 
 label.secondary-content {

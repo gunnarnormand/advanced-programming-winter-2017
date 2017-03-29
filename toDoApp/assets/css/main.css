@@ -12,8 +12,42 @@ TABLE OF CONTENTS:
 ==============================================
 */
 /* 1. Main Layout ================================= */
+.input-field .prefix.active {
+  color: #1C263C; }
+
+input:not([type]):focus:not([readonly]) + label, input[type=text]:focus:not([readonly]) + label, input[type=password]:focus:not([readonly]) + label, input[type=email]:focus:not([readonly]) + label, input[type=url]:focus:not([readonly]) + label, input[type=time]:focus:not([readonly]) + label, input[type=date]:focus:not([readonly]) + label, input[type=datetime]:focus:not([readonly]) + label, input[type=datetime-local]:focus:not([readonly]) + label, input[type=tel]:focus:not([readonly]) + label, input[type=number]:focus:not([readonly]) + label, input[type=search]:focus:not([readonly]) + label, textarea.materialize-textarea:focus:not([readonly]) + label {
+  color: #1C263C; }
+
+input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly]), input[type=email]:focus:not([readonly]), input[type=url]:focus:not([readonly]), input[type=time]:focus:not([readonly]), input[type=date]:focus:not([readonly]), input[type=datetime]:focus:not([readonly]), input[type=datetime-local]:focus:not([readonly]), input[type=tel]:focus:not([readonly]), input[type=number]:focus:not([readonly]), input[type=search]:focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]) {
+  border-bottom: 1px solid #1C263C;
+  box-shadow: 0 1px 0 0 #1C263C; }
+
+.btn-floating {
+  background-color: #1C263C; }
+  .btn-floating:hover {
+    background-color: #455268; }
+
+.secondary-content {
+  color: #1C263C; }
+
+[type="checkbox"]:checked + label:before {
+  border-right: 2px solid #1C263C;
+  border-bottom: 2px solid #1C263C; }
+
+blockquote {
+  border-left: 5px solid #c6ff00; }
+
+.deep-orange.lighten-3 {
+  background-color: #c6ff00 !important; }
+
 * {
   box-sizing: border-box; }
+
+body {
+  color: #1C263C; }
+
+h1 {
+  font-family: 'Raleway', sans-serif; }
 
 /* 2. Content ================================= */
 .collection .collection-item {

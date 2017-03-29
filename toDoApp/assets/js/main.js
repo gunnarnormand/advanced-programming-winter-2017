@@ -2,7 +2,7 @@ console.log("main.js");
 
 var toDo = (function() {
 
-	num = 0;
+	var num = 0;
 
 	function createToDoItem(toDoList, toDoValue) {
 		var toDoItem = document.createElement("li");

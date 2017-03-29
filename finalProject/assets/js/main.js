@@ -7,7 +7,8 @@ const app = (function() {
 	const $searchForm = document.querySelector('#search-form');
 	const $placesList = document.querySelector('#places-list');
 	const $myModalLabel= document.querySelector('#myModalLabel');
-	const $placeType = document.querySelector('#place-type');	
+	const $placeType = document.querySelector('.place-type');
+	const $placeTypeForm = document.querySelector('#placeTypeForm');	
 	const $reviewForm = document.querySelector('#review-form');
 	const $reviewsList = document.querySelector('#reviews-list');
 	const $showReviews = document.querySelectorAll('.show-reviews');
@@ -69,31 +70,36 @@ const app = (function() {
 			places[reviewPlaceIndex].reviews.push( formEntries );
 			savePlacesToLocalStorage();
 
-			$reviewForm.innerHTML = `
-				<select id="place-type" class="browser-default">
-				    <option value="" disabled selected>place type</option>
-				    <option value="restaurant">restaurant</option>
-				    <option value="hotel">hotel</option>
-				    <option value="bar">bar</option>
-				    <option value="attraction">attraction</option>
-				    <option value="uncategorized">uncategorized</option>
-				</select>
-			`;
+			// $reviewForm.innerHTML = `
+			// 	<select class="place-type browser-default" onchange="this.form.submit();">
+			// 		<option value="" disabled selected>place type</option>
+			// 		<option value="restaurant">restaurant</option>
+			// 		<option value="hotel">hotel</option>
+			// 		<option value="bar">bar</option>
+			// 		<option value="attraction">attraction</option>
+			// 		<option value="uncategorized">uncategorized</option>
+			// 	</select>
+			// 	<i class="bar"></i>
+			// `;
 
+			$reviewForm.reset();
 
-			$('#myModal').modal('hide');	
+			$placeType.selectedIndex = -1;			
+			$('#myModal').modal('hide');
+
 			// console.log('review form reset');
 
 
 
-			// refreshReviews(places, $reviewsList);
+			refreshPlaces(places, $placesList);
+			refreshReviews(places[reviewPlaceIndex].reviews, $reviewsList);
 				
 		}
 
 		function refreshPlaces(places = [], placesList) {
 
 			placesList.innerHTML = places.map((place, i) => {
-				if (place.deleted) return ;//`<div class="col-md-8 col-lg-7 mx-auto float-xs-none white z-depth-1 py-2 px-2 animated slideInDown">Item deleted</div>`;
+				if (place.deleted) return; //`<div class="col-md-8 col-lg-7 mx-auto float-xs-none white z-depth-1 py-2 px-2 animated slideInDown">${place.placeText} deleted <a href="#">undo</a></div>`;
 				return `
 					<div class="col-md-8 col-lg-7 mx-auto float-xs-none white z-depth-1 py-2 px-2 animated slideInDown">
 						<h2 class="h2-responsive"><strong>${place.placeText}</strong></h2>
@@ -108,33 +114,28 @@ const app = (function() {
 				`;
 			}).join('');
 
-
-
 			// console.clear();
 			// console.table(places);
 		}
 
-		function refreshReviews(places = [], reviewsList) {
+		function refreshReviews(reviews, reviewsList) {
 			// console.log(reviewsList);
 
-			reviewsList.innerHTML = places[reviewPlaceIndex].reviews[reviewPlaceIndex].map((review, i) => {
-				return `
-					<div class="card text-center">
-					    <div class="card-header deep-purple darken-2 white-text">
-					        ${review.name}
-					    </div>
-					    <div class="card-block">
-					        <h4 class="card-title">${review.rating}</h4>
-					        <p class="card-text">${review.review}</p>
-					    </div>
-					    <div class="card-footer text-muted deep-purple darken-2 white-text">
-					        <p>2 days ago</p>
+			reviewsList.innerHTML = reviews.map((review, i) => {
+				return `	
+					<div class="card card-block">
+					    <h2 class="card-title">${review.name}</h2>
+					    <p class="card-text">${review.review}</p>
+					    <div class="flex-row">
+					        <a class="card-link">Liked: ${review.recommend}</a>
+					        <a class="card-link">Rating: ${review.rating}/5</a>
+					        <a class="card-link">Price: ${review.price}</a>
 					    </div>
 					</div>
 				`
 			}).join('');
 
-			// console.table(places[reviewPlaceIndex].reviews);	
+			console.table(reviews);	
 		}
 
 
@@ -174,18 +175,21 @@ const app = (function() {
 			const el = e.target;
 			const index = el.dataset.index;
 			
-			console.log(places[index]);
+			// console.table(places[index].reviews);
 			
 
 			$reviewModalPlace.innerHTML = `Reviews for ${places[index].placeText}`;
 
-			refreshReviews(places, $reviewsList);
+			refreshReviews(places[index].reviews, $reviewsList);
 
 		}
 
 		function setupReviewForm(e) {
+			e.preventDefault();
 
-			// console.log("setupReviewForm", e);
+			const $controlLabel = document.querySelector('.control-label');
+			$controlLabel.innerHTML = `Make your review for the ${$placeType.value} `;
+
 
 			const dfReview = {
 				name: 'name',
@@ -212,16 +216,18 @@ const app = (function() {
 						    <option value="4">good</option>
 						    <option value="5">excellent</option>
 						</select>
+						<i class="bar"></i>
 						
 						<p>${this.recommend}</p>
-			            <div class="btn-group" data-toggle="buttons">
-			              <label class="btn btn-primary">
-			                <input type="radio" name="options" id="option2" autocomplete="off"> yes
-			              </label>
-			              <label class="btn btn-primary">
-			                <input type="radio" name="options" id="option3" autocomplete="off"> no
-			              </label>
-			            </div>
+						
+						<div class="btn-group" data-toggle="buttons">
+						  <label class="btn btn-primary">
+						    <input type="radio" name="recommend" id="option2" autocomplete="off" value="Yes"><i class="fa fa-thumbs-up right"></i>
+						  </label>
+						  <label class="btn btn-primary">
+						    <input type="radio" name="recommend" id="option3" autocomplete="off" value="No"><i class="fa fa-thumbs-down right"></i>
+						  </label>
+						</div>
 						
 						<div class="text-right">
 						    <button type="submit" name="save" class="btn btn-primary">save</button>
@@ -232,10 +238,10 @@ const app = (function() {
 
 			const restaurantReview = Object.create(dfReview);
 
-			restaurantReview.name = 'name of restaurant';
-			restaurantReview.review = 'did you like the food/atmosphere?';
-			restaurantReview.rating = 'how was the food?';
-			restaurantReview.price = 'how was the price?';
+			restaurantReview.name = 'Name of restaurant';
+			restaurantReview.review = 'Review of restaurant';
+			restaurantReview.rating = 'Restaurant rating';
+			restaurantReview.price = 'price';
 			restaurantReview.getRestaurantFormInfo = function() {
 				return `
 					<select name="price"  class="browser-default">
@@ -244,33 +250,34 @@ const app = (function() {
 					    <option value="2">$$</option>
 					    <option value="3">$$$</option>
 					</select>
+					<i class="bar"></i>
 					${restaurantReview.getFormInfo()}
 				`;
 			}
 
 			const hotelReview = Object.create(dfReview);
 
-			hotelReview.name = 'name of hotel';
-			hotelReview.review = 'did you enjoy the service/accommodations?';
-			hotelReview.rating = 'how was your stay?';
+			hotelReview.name = 'Name of hotel';
+			hotelReview.review = 'Review of hotel';
+			hotelReview.rating = 'Hotel rating';
 			hotelReview.getHotelFormInfo = function() {
 				return hotelReview.getFormInfo();
 			}
 
 			const barReview = Object.create(dfReview);
 
-			barReview.name = 'name of bar';
-			barReview.review = 'did you enjoy the drink selection?';
-			barReview.rating = 'how was it?';
+			barReview.name = 'Name of bar';
+			barReview.review = 'Review of bar';
+			barReview.rating = 'Bar rating';
 			barReview.getBarFormInfo = function() {
 				return barReview.getFormInfo();
 			}
 
 			const attractionReview = Object.create(dfReview);
 
-			attractionReview.name = 'name of attraction';
-			attractionReview.review = 'did you enjoy your experience?';
-			attractionReview.rating = 'rate the attraction';
+			attractionReview.name = 'Name of attraction';
+			attractionReview.review = 'Review of attraction';
+			attractionReview.rating = 'Attraction rating';
 			attractionReview.getAttractionFormInfo = function() {
 				return attractionReview.getFormInfo();
 			}
@@ -297,12 +304,13 @@ const app = (function() {
 		$placesList.addEventListener('click', setDeleted);
 		$placesList.addEventListener('click', setupReviewTitle);
 		$placesList.addEventListener('click', storeReviewPlaceIndex);
+		
 		$placeType.addEventListener('change', setupReviewForm);
+		// $placeType.forEach(input => input.addEventListener('change', setupReviewForm));
+
 		$reviewForm.addEventListener('submit', addReview);
 
 		$placesList.addEventListener('click', showReviews);
-
-		
 	}
 
 

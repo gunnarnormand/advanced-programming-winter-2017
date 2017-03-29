@@ -1,20 +1,53 @@
-// $primary-color: color("materialize-red", "lighten-2") !default;
-// $primary-color-light: false !default;
-// $primary-color-dark: false !default;
+$limegreen: #c6ff00;
+$lightgreen: #dce775;
+$darkblue: #1C263C;
+$blue: #455268;
 
-// @if not $primary-color-light {
-// $primary-color-light: lighten($primary-color, 15%);
+// #dce775
+
+.input-field .prefix.active {
+	color: $darkblue;
+}
+
+input:not([type]):focus:not([readonly])+label, input[type=text]:focus:not([readonly])+label, input[type=password]:focus:not([readonly])+label, input[type=email]:focus:not([readonly])+label, input[type=url]:focus:not([readonly])+label, input[type=time]:focus:not([readonly])+label, input[type=date]:focus:not([readonly])+label, input[type=datetime]:focus:not([readonly])+label, input[type=datetime-local]:focus:not([readonly])+label, input[type=tel]:focus:not([readonly])+label, input[type=number]:focus:not([readonly])+label, input[type=search]:focus:not([readonly])+label, textarea.materialize-textarea:focus:not([readonly])+label {
+    color: $darkblue;
+}
+
+input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly]), input[type=email]:focus:not([readonly]), input[type=url]:focus:not([readonly]), input[type=time]:focus:not([readonly]), input[type=date]:focus:not([readonly]), input[type=datetime]:focus:not([readonly]), input[type=datetime-local]:focus:not([readonly]), input[type=tel]:focus:not([readonly]), input[type=number]:focus:not([readonly]), input[type=search]:focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]) {
+    border-bottom: 1px solid $darkblue;
+    box-shadow: 0 1px 0 0 $darkblue;
+}
+
+.btn-floating {
+    background-color: $darkblue;
+
+    &:hover {
+    	background-color: $blue;
+    }
+}
+
+.secondary-content {
+    color: $darkblue;
+}
+
+[type="checkbox"]:checked+label:before {
+    border-right: 2px solid $darkblue;
+    border-bottom: 2px solid $darkblue;
+}
+
+blockquote {
+    border-left: 5px solid $limegreen;
+}
+
+.deep-orange.lighten-3 {
+    background-color: $limegreen !important;
+}
+
+// .collection .collection-item {
+//     background-color: #B6C0D2;
+//     border-bottom: 1px solid #e0e0e0;
 // }
 
-// @if not $primary-color-dark {
-// $primary-color-dark: darken($primary-color, 15%);
-// }
-
-// $secondary-color: color("teal", "lighten-1") !default;
-// $success-color: color("green", "base") !default;
-// $error-color: color("red", "base") !default;
-// $link-color: color("light-blue", "darken-1") !default;
 
 
 
-$color: #039be5;

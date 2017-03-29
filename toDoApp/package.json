@@ -1,7 +1,7 @@
 {
-  "name": "circus-starter",
+  "name": "toDo App",
   "version": "1.0.0",
-  "description": "A good starting point for new Circus students",
+  "description": "Advanced JS toDoApp project",
   "main": "gulpfile.js",
   "dependencies": {},
   "devDependencies": {
@@ -18,12 +18,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/chrissilich/circus-starter.git"
+    "url": "/"
   },
-  "author": "Chris Silich",
+  "author": "Gunnar Normand",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/chrissilich/circus-starter/issues"
+    "url": "/"
   },
-  "homepage": "https://github.com/chrissilich/circus-starter#readme"
+  "homepage": "/"
 }
